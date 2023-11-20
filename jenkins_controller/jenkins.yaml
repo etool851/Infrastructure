@@ -1,0 +1,46 @@
+jenkins:
+  authorizationStrategy:
+    globalMatrix:
+      entries:
+      - user:
+          name: "panda"
+          permissions:
+          - "Overall/Administer"
+  securityRealm:
+    local:
+      allowsSignup: false
+      enableCaptcha: false
+      users:
+      - id: "panda"
+        name: "panda"
+        password: "panda"
+        properties:
+        - "apiToken"
+        - "myView"
+        - preferredProvider:
+            providerId: "default"
+        - "timezone"
+        - "experimentalFlags"
+        - mailer:
+            emailAddress: "a@a.aa"
+unclassified:
+  location:
+    url: 'http://192.168.44.44:8880/'
+  sonarGlobalConfiguration:
+    buildWrapperEnabled: false
+    installations:
+    - name: "SonarCube"
+      serverUrl: "http://192.168.44.44:9000"
+      triggers:
+        skipScmCause: false
+        skipUpstreamCause: false
+
+tool:
+  sonarRunnerInstallation:
+    installations:
+    - name: "SonarCube"
+      properties:
+      - installSource:
+          installers:
+          - sonarRunnerInstaller:
+              id: "5.0.1.3006"
