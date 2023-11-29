@@ -1,3 +1,48 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - usernamePassword:
+          id: "artifactory"
+          username: "admin"
+          password: "password"
+          scope: GLOBAL 
+      - basicSSHUserPrivateKey:
+          description: "private_key"
+          id: "panda"
+          privateKeySource:
+            directEntry:
+              privateKey: |
+                -----BEGIN RSA PRIVATE KEY-----
+                MIIEpAIBAAKCAQEAmicV5fguBrJiHK7F0Ppqkv7fUjbBa7Y+S333Zza/PvWuNFFB
+                w19ZintulPKEmqwnIi2BLV1rFrZdVZkEuiQHVSOb2SktidDbeqHvgB/ctj4S+sLa
+                lLHpdmiR1JPMNdw35LfsOrWQUMQrswQ71kbeobKa1bib1qCAjGWp1TqF2/gXycfd
+                d95hv7r4hf64LRKp+Qqk2x1jdXFLPo3otBjpX8kK/xkez+XD+m2sXucsQnm6IZYG
+                2Lw68FE9mQUpSRyGqm623gRf8ooAnFggPc+Oj7mynP6iHA2OanhbpXctJqhHaTCC
+                wy43K7YnZ6eML0WvHMWZeMPXzWBsCvAuev2/ZwIDAQABAoIBAEJle2UmVIzF4MSB
+                8upkMetGpGIA+6atRH+3rgxi5FT19SbLqQvB0gt3xtWY78y/QcvS1cT4a9vIiMMJ
+                uaODSTU+tS4AMoEd2KslfMcu8h389qfTrdpGF0zNFaL+VgMM63Y0UiendJWVKU1e
+                EXfl5pa3G0Ha1iTH1Raj41bYcjegI1kNl1chilQs+iUNviQAmfMB5FAZaz4BcNnk
+                KdGZiVQDxT7t5LPXcjNmRlzIBBz/VLtj6u7D8cM7Jwp0mN+apAlIZ212CFzWpNRl
+                Bgy1x53xyPWk++Jr3Ti5ewdxIGwu4cDsET18MUOA1bMEQsWamCFSrw+TR7bKGVB4
+                WuQOA+ECgYEA55e/K++vlpOH4GT/YelNZaKmXs/Qzip0KxyQbRzHhPk8Y/ZNz7Zj
+                jxw60anwdkEheiloBBtw3O5+gVidy8UJh5LZgZhPiZc85bluoKRyDGtRHKmJqTc5
+                DpX0A3DquF1lshcFSNornYSiwryp09YYfCxyL9O/X9zbabfQxscgchMCgYEAqmYL
+                l41A4dRhsBtpc6HrFcyCBrAodU18UdZF2ymWubUvl89pzWWmkqbo3xrXbtKNvclO
+                IVUCz3MkJ4qguUrfDWv+Qc6QCXGMIz0T2L/26rE4Ksv4kV4RHq11nmQa6dZKHHN0
+                KF/yQEVwGpf29OBK22fLKAl7GPyCr7y1A2VIR90CgYAWyvaDqnlLhoWO7iG8TyvQ
+                3usk1aslP0RjodINCxIP4j+xTuJlmPu/b/XSALmryckzrrOQA+tdsxM8Q650CZZg
+                g3FoscbSMdJKga+Dm+ulkUJQYdcskkTJTLTRSeGv93E0z9MzUlWMkSs7oznLoXyT
+                bARo9JwXITNu+ipQBfUJhQKBgQCTxel5pctFzYxmUG90E1CvV+rPaAe+KtOMmTl9
+                piSLqsC6c+q6cNQzTEKZ8UoxVrILi7+REotcYutQy101M+QaXLRkV4H8Xpd8m+RR
+                TbERuV0PaFKJpr1MEHv3P7NDZU5iPBHZTdPlvxJITc+ib70bZ3j8oLQ7aAjh5NJK
+                PpSflQKBgQDk1DqibVOtmTadXDno2dYpZFX4my0ucqHAKVAUQREyKqkLdhHq8osy
+                vHoVFMY0B2SYTiTNEa4Pe8rv+zaXliYVZoq2P/XbEK4qoWl2QpWxTSz4cYHUoiZN
+                o1epS4clbUspxKat9tbIIRccKa9GWXVDNLih8TslLCBoL/knJc+aqw==
+                -----END RSA PRIVATE KEY-----
+          scope: GLOBAL
+          username: "jenkins"
+
 jenkins:
   authorizationStrategy:
     globalMatrix:
@@ -6,6 +51,19 @@ jenkins:
           name: "panda"
           permissions:
           - "Overall/Administer"
+  nodes:
+    - permanent:
+        name: "agent"
+        labelString: "agent"
+        launcher:
+          ssh:
+            credentialsId: "jenkins_agent"
+            host: "192.168.44.44"
+            port: 2222
+            sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+        remoteFS: "/home/jenkins/agent"
+        retentionStrategy: "always"
+
   securityRealm:
     local:
       allowsSignup: false
@@ -23,9 +81,10 @@ jenkins:
         - "experimentalFlags"
         - mailer:
             emailAddress: "a@a.aa"
+  numExecutors: 0
 unclassified:
   location:
-    url: 'http://192.168.44.44:8880/'
+    url: "http://192.168.44.44:8880/"
   sonarGlobalConfiguration:
     buildWrapperEnabled: false
     installations:
@@ -44,3 +103,4 @@ tool:
           installers:
           - sonarRunnerInstaller:
               id: "5.0.1.3006"
+
