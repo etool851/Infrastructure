@@ -26,9 +26,9 @@ services:
     restart: always
 
   jenkins_agent:
-    depends_on:
-      - jenkins
-    container_name: jenkins_agent
+ #   depends_on:
+ #     - jenkins
+ #   container_name: jenkins_agent
     build: jenkins_agent
     ports:
       - "2222:22"
@@ -38,18 +38,18 @@ services:
       - JENKINS_AGENT_SSH_PUBKEY=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCaJxXl+C4GsmIcrsXQ+mqS/t9SNsFrtj5LffdnNr8+9a40UUHDX1mKe26U8oSarCciLYEtXWsWtl1VmQS6JAdVI5vZKS2J0Nt6oe+AH9y2PhL6wtqUsel2aJHUk8w13Dfkt+w6tZBQxCuzBDvWRt6hsprVuJvWoICMZanVOoXb+BfJx9133mG/uviF/rgtEqn5CqTbHWN1cUs+jei0GOlfyQr/GR7P5cP6baxe5yxCebohlgbYvDrwUT2ZBSlJHIaqbrbeBF/yigCcWCA9z46PubKc/qIcDY5qeFuldy0mqEdpMILDLjcrtidnp4wvRa8cxZl4w9fNYGwK8C56/b9n
     restart: always
 
-  artifactory:
-    image: docker.bintray.io/jfrog/artifactory-jcr:7.39.4
-    container_name: artifactory
-    ports:
-      - "8081:8081"
-      - "8082:8082"
-    volumes:
-      - ./artifactory/:/artifactory_extra_conf/
-    restart: always
-    healthcheck:
-        test: ["CMD", "curl", "-f", "http://localhost:8082/artifactory/api/system/ping"]
-        start_period: 30s
-        interval: 5s
-        timeout: 10s
-        retries: 30
+#  artifactory:
+#    image: docker.bintray.io/jfrog/artifactory-jcr:7.39.4
+#    container_name: artifactory
+#    ports:
+#      - "8081:8081"
+#      - "8082:8082"
+#    volumes:
+#      - ./artifactory/:/artifactory_extra_conf/
+#    restart: always
+#    healthcheck:
+#        test: ["CMD", "curl", "-f", "http://localhost:8082/artifactory/api/system/ping"]
+#        start_period: 30s
+#        interval: 5s
+#        timeout: 10s
+#        retries: 30
