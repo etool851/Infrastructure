@@ -6,7 +6,7 @@ services:
     container_name: jenkins
     ports:
       - "8880:8080"
-      - "5000:5000"
+      - "50000:50000"
     volumes:
       - ./jenkins_controller/jenkins.yaml:/usr/share/jenkins/ref/jenkins.yaml
       - ./jenkins_controller/jobs:/usr/share/jenkins/ref/jobs
