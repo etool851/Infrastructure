@@ -111,4 +111,12 @@ tool:
           installers:
           - sonarRunnerInstaller:
               id: "5.0.1.3006"
+  terraform:
+    installations:
+    - name: "Terraform"
+      properties:
+      - installSource:
+          installers:
+          - terraformInstaller:
+              id: "20413-linux-amd64"
 
