@@ -97,6 +97,11 @@ unclassified:
         skipScmCause: false
         skipUpstreamCause: false
 
+jobs:
+  - file: /usr/share/jenkins/ref/jobs/backend.groovy
+  - file: /usr/share/jenkins/ref/jobs/frontend.groovy
+  - file: /usr/share/jenkins/ref/jobs/app_of_apps.groovy
+
 tool:
   sonarRunnerInstallation:
     installations:
