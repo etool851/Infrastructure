@@ -9,6 +9,7 @@ services:
       - "5000:5000"
     volumes:
       - ./jenkins_controller/jenkins.yaml:/usr/share/jenkins/ref/jenkins.yaml
+      - ./jenkins_controller/jobs:/usr/share/jenkins/ref/jobs
     restart: always
 #    depends_on:
 #      artifactory:
